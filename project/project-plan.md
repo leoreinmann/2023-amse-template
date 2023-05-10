@@ -10,7 +10,7 @@ The project aims to generate insights that can inform policy decisions and mitig
 ## Rationale
 
 <!-- Outline the impact of the analysis, e.g. which pains it solves. -->
-By analyzing carbon monoxide emissions from vehicular traffic and generating insights that can inform policy decisions, this project may contribute to efforts to reduce air pollution, which can have negative impacts on human health and the environment.
+By analyzing NO2 emissions from vehicular traffic and generating insights that can inform policy decisions, this project may contribute to efforts to reduce air pollution, which can have negative impacts on human health and the environment.
 
 ## Datasources
 
@@ -26,7 +26,7 @@ The data refers to motor vehicles registered with official license plates in Ger
 
 ### Datasource2: Annual AQ statistics (AirBase & e-Reporting merged)
 * Metadata URL: https://www.eea.europa.eu/data-and-maps/data/aqereporting-9
-* Data URL: https://discomap.eea.europa.eu/App/AirQualityStatistics/index.html?Country=Germany&AirPollutant=CO&AirQualityStationType=Traffic
+* Data URL: https://discomap.eea.europa.eu/App/AQViewer/index.html?fqn=Airquality_Dissem.b2g.AirQualityStatisticsCountry=Germany&AirQualityStationType=Traffic&AirPollutant=NO2
 * Data Type: CSV
 
 European air quality information reported by EEA member countries, including all EU Member States, as well as EEA cooperating and other reporting countries. 
