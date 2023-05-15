@@ -22,9 +22,9 @@ df_air_2021 = pd.read_csv("https://www.umweltbundesamt.de/api/air_data/v2/annual
 
 df_air_2022 = pd.read_csv("https://www.umweltbundesamt.de/api/air_data/v2/annualbalances/csv?component=5&year=2022&lang=en", on_bad_lines='warn',  delimiter=';')
 
-# ['State / Measuring network', 'Station code', 'Station name',
-# 'Station setting', 'Station type', 'Annual mean value in µg/m³',
-# 'Number of hourly mean values above 200 µg/m³*']
+#   ['State / Measuring network', 'Station code', 'Station name',
+#   'Station setting', 'Station type', 'Annual mean value in µg/m³',
+#   'Number of hourly mean values above 200 µg/m³*']
 
 
 
@@ -49,4 +49,10 @@ df_bike_2021 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Rad
 df_bike_2022 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202022.csv", encoding="iso-8859-1",  delimiter=';')
 
 
-print(df_bike_2022.columns)
+
+#   ['Unnamed: 0', 'Deutzer Brücke', 'Hohenzollernbrücke', 'Neumarkt',
+#   'Zülpicher Straße', 'Bonner Straße', 'Venloer Straße', 'Vorgebirgswall',
+#   'Universitäts-straße', 'A.-Schütte-Allee', 'Vorgebirgspark',
+#   'A.-Silbermann-Weg', 'Stadtwald', 'Niederländer Ufer',
+#   'Rodenkirchener Brücke', 'Severinsbrücke', 'Hohe Pforte',
+#   'Neusser Straße']
