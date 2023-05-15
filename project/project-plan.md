@@ -3,43 +3,32 @@
 ## Summary
 
 <!-- Describe your data science project in max. 5 sentences. -->
-This project analyzes carbon monoxide emissions from vehicular traffic between 2014 and 2021, with a focus on the potential impact of the COVID-19 pandemic. 
-We will differentiate between personal cars and trucks and consider the age of the vehicles. 
-The project aims to generate insights that can inform policy decisions and mitigate the environmental impact of vehicular traffic.
+In our data science project, we are analyzing the number of bike riders in Cologne, Germany, and correlating it with air quality data from the Umweltbundesamt. Specifically, we are investigating the potential impact of increased bike ridership on reducing nitrogen dioxide (NO2) levels in Cologne. By examining the relationship between bike ridership and NO2 concentrations over a period of time, we aim to identify any patterns or trends that suggest a possible reduction in NO2 levels due to increased bike usage. This analysis can provide valuable insights for policymakers and urban planners seeking to improve air quality in the city.
 
 ## Rationale
 
 <!-- Outline the impact of the analysis, e.g. which pains it solves. -->
-By analyzing NO2 emissions from vehicular traffic and generating insights that can inform policy decisions, this project may contribute to efforts to reduce air pollution, which can have negative impacts on human health and the environment.
+Our project is relevant because it addresses the critical public health issue of reducing NO2 levels in cities like Cologne by examining the potential impact of increased bike ridership on air quality. This analysis can provide valuable insights for policymakers and urban planners seeking to promote sustainable transportation options and improve air quality in the city.
 
 ## Datasources
 
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
-### Datasource1: Verkehr in Kilometern (VK), Zeitreihe 2014-2021
-* Metadata URL: https://mobilithek.info/offers/573358679854608384
-* Data URL: https://www.kba.de/SharedDocs/Downloads/DE/Statistik/Kraftverkehr/VK/vk_2021.xlsx
-* Data Type: XLSX
 
-The statistic "Verkehr in Kilometer (VK)" presents annual mileage figures based on the characteristics of vehicle type, vehicle age, and fuel type and energy source.
-The data refers to motor vehicles registered with official license plates in Germany and has been published annually since 2013. 
-
-### Datasource2: Annual AQ statistics (AirBase & e-Reporting merged)
-* Metadata URL: https://www.eea.europa.eu/data-and-maps/data/aqereporting-9
-* Data URL: https://discomap.eea.europa.eu/App/AQViewer/index.html?fqn=Airquality_Dissem.b2g.AirQualityStatisticsCountry=Germany&AirQualityStationType=Traffic&AirPollutant=NO2
-* Data Type: CSV
-
-European air quality information reported by EEA member countries, including all EU Member States, as well as EEA cooperating and other reporting countries. 
-The EEA’s air quality database consists of a multi-annual time series of air quality measurement data and calculated statistics for a number of air pollutants. 
-It also contains meta-information on the monitoring networks involved, their stations and measurements, air quality modelling techniques, as well as air quality zones, assessment regimes, compliance attainments and air quality plans and programmes reported by the EU Member States and European Economic Area countries.
-
-### Datasource3: Air data from Umweltbundesamt
+### Datasource1: Air data from Umweltbundesamt
 * Metadata URL: https://www.umweltbundesamt.de/en/data/air/air-data/annual-tabulation/eJxrWpScv9B0UWXqEiMDI0MAMNIFtg==
 * Data URL: https://www.umweltbundesamt.de/api/air_data/v2/annualbalances/csv?component=5&year=2021&lang=en (This is year 2021, we can modify the variable "year" in the link to get the other years)
 * Data Type: CSV
 
+The air quality index is based on the measured concentrations of three pollutants (nitrogen dioxide, particulate matter (PM₁₀) and ozone). 
 
-How good is the air? The air quality index is based on the measured concentrations of three pollutants (nitrogen dioxide, particulate matter (PM₁₀) and ozone). 
+
+### Datasource2: Fahrrad Verkehrsdaten Koeln
+* Metadata URL: https://mobilithek.info/offers/-5190830568637332944
+* Data URL: https://offenedaten-koeln.de/dataset/fahrrad-verkehrsdaten-koeln-0
+* Data Type: CSV
+
+This dataset contains the recordings of automatic counting stations for bicycle traffic in Cologne from 2015 onwards.
 
 ## Work Packages
 
