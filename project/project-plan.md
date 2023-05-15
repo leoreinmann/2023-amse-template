@@ -33,6 +33,14 @@ European air quality information reported by EEA member countries, including all
 The EEA’s air quality database consists of a multi-annual time series of air quality measurement data and calculated statistics for a number of air pollutants. 
 It also contains meta-information on the monitoring networks involved, their stations and measurements, air quality modelling techniques, as well as air quality zones, assessment regimes, compliance attainments and air quality plans and programmes reported by the EU Member States and European Economic Area countries.
 
+### Datasource3: Air data from Umweltbundesamt
+* Metadata URL: https://www.umweltbundesamt.de/en/data/air/air-data/annual-tabulation/eJxrWpScv9B0UWXqEiMDI0MAMNIFtg==
+* Data URL: https://www.umweltbundesamt.de/api/air_data/v2/annualbalances/csv?component=5&year=2021&lang=en (This is year 2021, we can modify the variable "year" in the link to get the other years)
+* Data Type: CSV
+
+
+How good is the air? The air quality index is based on the measured concentrations of three pollutants (nitrogen dioxide, particulate matter (PM₁₀) and ozone). 
+
 ## Work Packages
 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
