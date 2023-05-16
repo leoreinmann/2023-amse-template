@@ -1,6 +1,8 @@
 import pandas as pd
+import sqlite3
 
-# Data Extraction
+
+## Data Extraction
 
 df_air_2013 = pd.read_csv("https://www.umweltbundesamt.de/api/air_data/v2/annualbalances/csv?component=5&year=2013&lang=en", on_bad_lines='warn',  delimiter=';')
 
@@ -56,3 +58,67 @@ df_bike_2022 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Rad
 #   'A.-Silbermann-Weg', 'Stadtwald', 'Niederländer Ufer',
 #   'Rodenkirchener Brücke', 'Severinsbrücke', 'Hohe Pforte',
 #   'Neusser Straße']
+
+## Data Transformation
+
+df_air_2013['year'] = 2013
+df_air_2014['year'] = 2014
+df_air_2015['year'] = 2015
+df_air_2016['year'] = 2016
+df_air_2017['year'] = 2017
+df_air_2018['year'] = 2018
+df_air_2019['year'] = 2019
+df_air_2020['year'] = 2020
+df_air_2021['year'] = 2021
+df_air_2022['year'] = 2022
+
+# Combine all dataframes
+df_air_merged = pd.concat([df_air_2013, df_air_2014, df_air_2015, df_air_2016, df_air_2017, df_air_2018, df_air_2019, df_air_2020, df_air_2021, df_air_2022], ignore_index=True, sort=False)
+
+
+df_bike_2013['year'] = 2013
+df_bike_2014['year'] = 2014
+df_bike_2015['year'] = 2015
+df_bike_2016['year'] = 2016
+df_bike_2016.rename(columns={"Jahr 2016": "Unnamed: 0"}, inplace=True)
+df_bike_2017['year'] = 2017
+df_bike_2018['year'] = 2018
+df_bike_2018.rename(columns={"Jahr 2018": "Unnamed: 0"}, inplace=True)
+df_bike_2019['year'] = 2019
+df_bike_2019.rename(columns={"Jahr 2019": "Unnamed: 0"}, inplace=True)
+df_bike_2020['year'] = 2020
+df_bike_2020.rename(columns={"Jahr 2020": "Unnamed: 0"}, inplace=True)
+df_bike_2021['year'] = 2021
+df_bike_2022['year'] = 2022
+
+
+# Combine all dataframes
+df_bike_merged = pd.concat([df_bike_2013, df_bike_2014, df_bike_2015, df_bike_2016, df_bike_2017, df_bike_2018, df_bike_2019, df_bike_2020, df_bike_2021, df_bike_2022], ignore_index=True, sort=False)
+
+# Rename month column
+df_bike_merged.rename(columns={"Unnamed: 0": "month"}, inplace=True)
+
+# Add column sum for each month
+df_bike_merged['sum'] = df_bike_merged.sum(axis=1)
+
+
+
+# Drop rows in air if the data is not from not in Cologne
+df_air_merged = df_air_merged.dropna(subset=['Station name'])
+df_air_merged = df_air_merged[df_air_merged['Station name'].str.contains(r'\bKöln \b', regex=True)]
+
+# Drop rows in air if data is not from traffic
+df_air_merged = df_air_merged[df_air_merged['Station type'] == "traffic"]
+
+
+
+## Data Loading
+conn = sqlite3.connect('./data/data.db')
+c = conn.cursor()
+
+df_bike_merged.to_sql('bikes', conn, if_exists='replace', index=False)
+df_air_merged.to_sql('air', conn, if_exists='replace', index=False)
+
+conn.close()
+
+
