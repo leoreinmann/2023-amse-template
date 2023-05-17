@@ -1,5 +1,6 @@
 import pandas as pd
 import sqlite3
+import numpy as np
 
 
 ## Data Extraction
@@ -82,6 +83,7 @@ df_bike_2015['year'] = 2015
 df_bike_2016['year'] = 2016
 df_bike_2016.rename(columns={"Jahr 2016": "Unnamed: 0"}, inplace=True)
 df_bike_2017['year'] = 2017
+df_bike_2017.rename(columns={"Jahr 2016": "Unnamed: 0"}, inplace=True)
 df_bike_2018['year'] = 2018
 df_bike_2018.rename(columns={"Jahr 2018": "Unnamed: 0"}, inplace=True)
 df_bike_2019['year'] = 2019
@@ -98,8 +100,20 @@ df_bike_merged = pd.concat([df_bike_2013, df_bike_2014, df_bike_2015, df_bike_20
 # Rename month column
 df_bike_merged.rename(columns={"Unnamed: 0": "month"}, inplace=True)
 
+
+# Loop through all columns in the DataFrame
+for col in df_bike_merged.columns:
+    # Check if the column contains numeric data
+    if df_bike_merged[col].dtype == 'float64' or df_bike_merged[col].dtype == 'int64':
+        # Replace dots with empty strings in all cells of the column
+        df_bike_merged[col] = df_bike_merged[col].astype(str).str.replace('.', '', regex=False)
+        # Replace remaining NaN values with a default value
+        df_bike_merged[col] = df_bike_merged[col].replace('nan', np.nan, regex=False).fillna(0)
+        # Convert the modified strings back to numeric data types
+        df_bike_merged[col] = pd.to_numeric(df_bike_merged[col])
+
 # Add column sum for each month
-df_bike_merged['sum'] = df_bike_merged.sum(axis=1)
+df_bike_merged['sum'] = df_bike_merged.sum(axis=1, numeric_only=True)
 
 
 
