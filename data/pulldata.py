@@ -127,7 +127,7 @@ df_air_merged = df_air_merged[df_air_merged['Station type'] == "traffic"]
 
 
 ## Data Loading
-conn = sqlite3.connect('./data/data.db')
+conn = sqlite3.connect('./data/data.sqlite')
 c = conn.cursor()
 
 df_bike_merged.to_sql('bikes', conn, if_exists='replace', index=False)
