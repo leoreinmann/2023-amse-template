@@ -5,7 +5,7 @@ from sqlalchemy.types import BIGINT, TEXT, FLOAT
 
 df = pd.read_csv('https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv', on_bad_lines='warn',  delimiter=';')
 
-engine = create_engine('sqlite:///exercises/airports.sqlite')
+engine = create_engine('sqlite:///airports.sqlite')
 
 
 
