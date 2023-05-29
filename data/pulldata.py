@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
 import numpy as np
+import os
 
 
 ## Data Extraction
@@ -127,8 +128,18 @@ df_air_merged = df_air_merged[df_air_merged['Station type'] == "traffic"]
 
 
 ## Data Loading
-conn = sqlite3.connect('./data/data.sqlite')
+
+
+# Get the current working directory
+cwd = os.getcwd()
+
+# Construct the absolute path to the database file
+db_file_path = os.path.join(cwd, 'data', 'data.sqlite')
+
+# Connect to the database
+conn = sqlite3.connect(db_file_path)
 c = conn.cursor()
+
 
 df_bike_merged.to_sql('bikes', conn, if_exists='replace', index=False)
 df_air_merged.to_sql('air', conn, if_exists='replace', index=False)
