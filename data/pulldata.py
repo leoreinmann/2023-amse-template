@@ -38,15 +38,15 @@ df_bike_2014 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Rad
 
 df_bike_2015 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202015.csv", encoding="iso-8859-1",  delimiter=';')
 
-df_bike_2016 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2016.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2016 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2016.csv",  delimiter=';')
 
-df_bike_2017 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2017.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2017 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2017.csv",  delimiter=';')
 
-df_bike_2018 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2018.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2018 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2018.csv",  delimiter=';')
 
-df_bike_2019 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2019.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2019 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2019.csv",  delimiter=';')
 
-df_bike_2020 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2020.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2020 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2020.csv",  delimiter=';')
 
 df_bike_2021 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202021.csv", encoding="iso-8859-1",  delimiter=';')
 
@@ -54,12 +54,12 @@ df_bike_2022 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Rad
 
 
 
-#   ['Unnamed: 0', 'Deutzer Brücke', 'Hohenzollernbrücke', 'Neumarkt',
-#   'Zülpicher Straße', 'Bonner Straße', 'Venloer Straße', 'Vorgebirgswall',
-#   'Universitäts-straße', 'A.-Schütte-Allee', 'Vorgebirgspark',
-#   'A.-Silbermann-Weg', 'Stadtwald', 'Niederländer Ufer',
-#   'Rodenkirchener Brücke', 'Severinsbrücke', 'Hohe Pforte',
-#   'Neusser Straße']
+#       'month', 'Bonner Straße', 'Deutzer Brücke', 'Hohenzollernbrücke',
+#       'Neumarkt', 'Zülpicher Straße', 'year', 'Venloer Straße',
+#       'A.-Schütte-Allee', 'Vorgebirgspark', 'A.-Silbermann-Weg', 'Stadtwald',
+#       'Niederländer Ufer', 'Vorgebirgswall', 'Universitäts-straße',
+#       'Rodenkirchener Brücke', 'Severinsbrücke', 'Neusser Straße',
+#       'Hohe Pforte', 'sum'
 
 ## Data Transformation
 
@@ -116,6 +116,7 @@ for col in df_bike_merged.columns:
 # Add column sum for each month
 df_bike_merged['sum'] = df_bike_merged.sum(axis=1, numeric_only=True)
 
+print(df_bike_merged.columns)
 
 
 # Drop rows in air if the data is not from not in Cologne
