@@ -126,6 +126,9 @@ df_bike_merged = df_bike_merged[df_bike_merged["month"] != "Jahressumme"]
 df_air_merged = df_air_merged.dropna(subset=['Station name'])
 df_air_merged = df_air_merged[df_air_merged['Station name'].str.contains(r'\bKöln \b', regex=True)]
 
+# Remove the suffix 'Köln ' from the 'Station name' column
+df_air_merged['Station name'] = df_air_merged['Station name'].str.replace('Köln ', '')
+
 # Drop rows in air if data is not from traffic
 df_air_merged = df_air_merged[df_air_merged['Station type'] == "traffic"]
 
