@@ -116,8 +116,6 @@ for col in df_bike_merged.columns:
 # Add column sum for each month
 df_bike_merged['sum'] = df_bike_merged.sum(axis=1, numeric_only=True)
 
-print(df_bike_merged.columns)
-
 
 # Drop rows in air if the data is not from not in Cologne
 df_air_merged = df_air_merged.dropna(subset=['Station name'])
