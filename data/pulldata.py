@@ -31,26 +31,25 @@ df_air_2022 = pd.read_csv("https://www.umweltbundesamt.de/api/air_data/v2/annual
 #   'Number of hourly mean values above 200 µg/m³*']
 
 
-
 df_bike_2013 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202013.csv", encoding="iso-8859-1",  delimiter=';')
 
 df_bike_2014 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202014.csv", encoding="iso-8859-1",  delimiter=';')
 
 df_bike_2015 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202015.csv", encoding="iso-8859-1",  delimiter=';')
 
-df_bike_2016 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2016.csv",  delimiter=';')
+df_bike_2016 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2016.csv",  delimiter=';', dtype=str)
 
-df_bike_2017 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2017.csv",  delimiter=';')
+df_bike_2017 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2017.csv",  delimiter=';', dtype=str)
 
-df_bike_2018 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2018.csv",  delimiter=';')
+df_bike_2018 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2018.csv",  delimiter=';', dtype=str)
 
-df_bike_2019 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2019.csv",  delimiter=';')
+df_bike_2019 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2019.csv",  delimiter=';', dtype=str)
 
-df_bike_2020 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2020.csv",  delimiter=';')
+df_bike_2020 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Fahrrad_Zaehlstellen_Koeln_2020.csv",  delimiter=';', dtype=str)
 
-df_bike_2021 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202021.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2021 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202021.csv", encoding="iso-8859-1",  delimiter=';', dtype=str)
 
-df_bike_2022 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202022.csv", encoding="iso-8859-1",  delimiter=';')
+df_bike_2022 = pd.read_csv("https://offenedaten-koeln.de/sites/default/files/Radverkehr%20f%C3%BCr%20Offene%20Daten%20K%C3%B6ln%202022.csv", encoding="iso-8859-1",  delimiter=';', dtype=str)
 
 
 
@@ -95,26 +94,30 @@ df_bike_2021['year'] = 2021
 df_bike_2022['year'] = 2022
 
 
-# Combine all dataframes
-df_bike_merged = pd.concat([df_bike_2013, df_bike_2014, df_bike_2015, df_bike_2016, df_bike_2017, df_bike_2018, df_bike_2019, df_bike_2020, df_bike_2021, df_bike_2022], ignore_index=True, sort=False)
+# Combine all dataframes with the floating point issue
+df_bike_merged = pd.concat([df_bike_2016, df_bike_2017, df_bike_2018, df_bike_2019, df_bike_2020, df_bike_2021, df_bike_2022], ignore_index=True, sort=False)
 
 # Rename month column
 df_bike_merged.rename(columns={"Unnamed: 0": "month"}, inplace=True)
 
-
 # Loop through all columns in the DataFrame
-for col in df_bike_merged.columns:
-    # Check if the column contains numeric data
-    if df_bike_merged[col].dtype == 'float64' or df_bike_merged[col].dtype == 'int64':
-        # Replace dots with empty strings in all cells of the column
-        df_bike_merged[col] = df_bike_merged[col].astype(str).str.replace('.', '', regex=False)
-        # Replace remaining NaN values with a default value
-        df_bike_merged[col] = df_bike_merged[col].replace('nan', np.nan, regex=False).fillna(0)
-        # Convert the modified strings back to numeric data types
-        df_bike_merged[col] = pd.to_numeric(df_bike_merged[col])
+for col in df_bike_merged.columns.difference(['month', 'year']):
+    # Replace dots with empty strings in all cells of the column
+    df_bike_merged[col] = df_bike_merged[col].str.replace('.', '', regex=False)
+    # Convert the modified strings back to numeric data types
+    df_bike_merged[col] = pd.to_numeric(df_bike_merged[col])
 
-# Add column sum for each month
-df_bike_merged['sum'] = df_bike_merged.sum(axis=1, numeric_only=True)
+df_bike_merged_before_2016 = pd.concat([df_bike_2013, df_bike_2014, df_bike_2015])
+
+# Rename month column
+df_bike_merged_before_2016.rename(columns={"Unnamed: 0": "month"}, inplace=True)
+
+# Merge all dataframes
+df_bike_merged = pd.concat([df_bike_merged_before_2016, df_bike_merged])
+
+for col in df_bike_merged.columns:
+    # Replace remaining NaN values with a default value
+    df_bike_merged[col] = df_bike_merged[col].replace('NULL', np.nan, regex=False).fillna(0)
 
 # Delete row name "Jahressumme"
 df_bike_merged = df_bike_merged[df_bike_merged["month"] != "Jahressumme"]
