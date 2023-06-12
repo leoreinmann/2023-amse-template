@@ -22,4 +22,6 @@ jobs:
 
       - name: Run tests.sh
         working-directory: project
-        run: ./tests.sh
+        run: |
+          chmod +x tests.sh
+          ./tests.sh
