@@ -10,8 +10,8 @@ if [[ $script_dir == */project ]]; then
     cd "$project_dir"
 fi
 
-# Run pulldata.py
-python3 data/pulldata.py
+# Run automated_pipeline.py
+python3 data/automated_pipeline.py
 
 # Check if the output file exists
 if [ -f data/data.sqlite ]; then
