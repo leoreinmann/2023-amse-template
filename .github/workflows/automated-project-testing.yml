@@ -21,7 +21,7 @@ jobs:
           python-version: 3.11
 
       - name: Run tests.sh
-        working-directory: project
+        working-directory: ./project
         run: |
           chmod +x tests.sh
           ./tests.sh
