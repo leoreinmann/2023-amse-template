@@ -6,22 +6,30 @@ on:
       - 'project/**'
 
 
-jobs:
-  testing:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: main
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
-      - name: Run tests
-        run: |
-          cd project
-          chmod +x tests.sh
-          bash tests.sh
+      on:
+        push:
+          paths:
+            - 'data/**'
+            - 'project/**'
+      
+      jobs:
+        test:
+          runs-on: ubuntu-latest
+      
+          steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+      
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                python-version: 3.x
+      
+            - name: Change directory to project
+              run: cd project
+      
+            - name: Set execute permissions for tests.sh
+              run: chmod +x tests.sh
+      
+            - name: Run tests
+              run: ./tests.sh
