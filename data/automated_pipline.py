@@ -136,7 +136,6 @@ df_air_merged = df_air_merged[df_air_merged['Station type'] == "traffic"]
 
 ## Data Loading
 
-
 # Get the current working directory
 cwd = os.getcwd()
 
@@ -153,6 +152,3 @@ df_air_merged.to_sql('air', conn, if_exists='replace', index=False)
 
 conn.close()
 
-
-
-# Test  d
