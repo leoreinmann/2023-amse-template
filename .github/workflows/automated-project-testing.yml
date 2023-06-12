@@ -24,4 +24,4 @@ jobs:
         working-directory: ${{ github.workspace }}/project
         run: |
           chmod +x tests.sh
-          tests.sh
+          /bin/bash tests.sh
