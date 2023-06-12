@@ -21,7 +21,6 @@ jobs:
       with:
         python-version: 3.11
 
-    # Run exercise feedback
-    - name: Exercise feedback
+    - name: Run tests.sh
       run:
-        ./project/tests.sh
+        project/tests.sh
