@@ -24,4 +24,4 @@ jobs:
         working-directory: ./project
         run: |
           chmod +x tests.sh
-          ./tests.sh
+          tests.sh
