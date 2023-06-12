@@ -35,13 +35,15 @@ This dataset contains the recordings of automatic counting stations for bicycle 
 <!-- List of work packages ordered sequentially, each pointing to an issue with more details. -->
 
 1. Automated data pipeline [#1][i1]
-2. Automated tests [#2][i1]
-3. CI [#3][i1]
-4. Deploy project using GitHub pages [#4][i1]
-
+2. Automated tests [#2][i2]
+3. CI [#3][i3]
+4. Deploy project using GitHub pages [#4][i4]
+5. Complete exploratory data analysis
+6. Writing final report
 
 [i1]: https://github.com/leoreinmann/2023-amse-template/issues/1
 [i2]: https://github.com/leoreinmann/2023-amse-template/issues/2
 [i3]: https://github.com/leoreinmann/2023-amse-template/issues/3
 [i4]: https://github.com/leoreinmann/2023-amse-template/issues/4
-
+[i5]: https://github.com/leoreinmann/2023-amse-template/issues/5
+[i6]: https://github.com/leoreinmann/2023-amse-template/issues/6
