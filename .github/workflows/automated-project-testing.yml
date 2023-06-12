@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: 3.x
 
+      - name: Install all python dependencies
+        run: pip3 install pandas sqlite3 numpy os
+        
       - name: Change directory to project, make tests.sh executable and run tests.sh
         run: cd project && chmod +x tests.sh && ./tests.sh
 
