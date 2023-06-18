@@ -74,4 +74,4 @@ column_sql_dtype_mapping = {
 
 engine = create_engine('sqlite:///cars.sqlite')
 
-df.to_sql('cars', con=engine, if_exists='replace', dtype=column_sql_dtype_mapping)
+df.to_sql('cars', con=engine, if_exists='replace', dtype=column_sql_dtype_mapping, index=False)
