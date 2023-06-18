@@ -2,20 +2,6 @@ import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.types import BIGINT, TEXT, FLOAT
 
-
-column_mapping = {
-    0: TEXT,
-    1: TEXT,
-    2: TEXT,
-    3: BIGINT,
-    4: BIGINT,
-    5: BIGINT,
-    6: BIGINT,
-    7: BIGINT,
-    8: BIGINT,
-    9: BIGINT
-}
-
 # List of column indices to keep
 indices_to_keep = [0, 1, 2, 12, 22, 32, 42, 52, 62, 72]
 
@@ -29,7 +15,7 @@ df = pd.read_csv('https://www-genesis.destatis.de/genesis/downloads/00/tables/46
 df = df.iloc[:-4]
 
 # rename
-mapping = {df.columns[0]: 'date',
+column_name_mapping = {df.columns[0]: 'date',
            df.columns[1]: 'CIN', 
            df.columns[2]: 'name', 
            df.columns[3]: 'petrol', 
@@ -40,28 +26,52 @@ mapping = {df.columns[0]: 'date',
            df.columns[8]: 'plugInHybrid', 
            df.columns[9]: 'others'}
 
-df = df.rename(columns=mapping)
+df = df.rename(columns=column_name_mapping)
 
 
+# Drop all invalid rows
+df = df.drop(df[df.eq('-').any(axis=1)].index)
 
 
+# Typecast the numbers from str to int
+column_pandas_dtype_mapping = {
+    'date':str,
+    'CIN':str,
+    'name':str,
+    'petrol':int,
+    'diesel':int,
+    'gas':int,
+    'electro':int,
+    'hybrid':int,
+    'plugInHybrid':int,
+    'others':int
+}
+
+df = df.astype(column_pandas_dtype_mapping)
+
+# Filter and keep rows with CIN having exactly 5 letters
+df = df[df['CIN'].str.len() == 5]
+
+# Delete every row where a negative integer is
+integer_columns = df.select_dtypes(include='int64').columns
+
+df = df[(df[integer_columns] > 0).all(axis=1)]
 
 
-
-column_mapping = {
-    0: 'date',
-    1: 'CIN',
-    2: 'name',
-    12: 'petrol',
-    22: 'diesel',
-    32: 'gas',
-    42: 'electro',
-    52: 'hybrid',
-    62: 'plugInHybrid',
-    72: 'others'
+column_sql_dtype_mapping = {
+    'date':TEXT,
+    'CIN':TEXT,
+    'name':TEXT,
+    'petrol':BIGINT,
+    'diesel':BIGINT,
+    'gas':BIGINT,
+    'electro':BIGINT,
+    'hybrid':BIGINT,
+    'plugInHybrid':BIGINT,
+    'others':BIGINT
 }
 
 
 engine = create_engine('sqlite:///cars.sqlite')
 
-df.to_sql('cars', con=engine, if_exists='replace')
+df.to_sql('cars', con=engine, if_exists='replace', dtype=column_sql_dtype_mapping)
