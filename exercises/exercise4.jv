@@ -1,0 +1,62 @@
+
+
+pipeline MobilePhonePipeline {
+
+    
+
+    block MobilePhoneDataExtractor oftype HttpExtractor {
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+
+    block MobilePhoneZipArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block MobilePhoneFilePicker oftype FilePicker {
+        path: "./data.csv";
+    }
+
+    block MobilePhoneTextFileInterpreter oftype TextFileInterpreter {}
+
+    block MobilePhoneCSVDecoder oftype CSVInterpreter {
+		delimiter: ';';
+	}
+
+    block MobilePhoneCoreDataSelector oftype CellRangeSelector {
+        select: range A1:K*;
+    }
+
+    block MobilePhoneColumnDeleter oftype ColumnDeleter {
+        delete: [column F, column G, column H, column I];
+    }
+
+
+
+    block MobilePhoneTableDecoder oftype TableInterpreter {
+        header: false;
+        columns: [
+            "Geraet" oftype text,
+            "Hersteller" oftype text,
+            "Model" oftype text,
+            "Temperature" oftype decimal,
+            "Batterietemperatur" oftype decimal,
+            "Geraet aktiv" oftype text
+        ];
+    }
+
+    block MobilePhoneLoader oftype SQLiteLoader {
+		table: "temperatures";
+		file: "./temperatures.sqlite";
+	}
+
+    MobilePhoneDataExtractor
+    -> MobilePhoneZipArchiveInterpreter
+    -> MobilePhoneFilePicker
+    -> MobilePhoneTextFileInterpreter
+    -> MobilePhoneCSVDecoder
+    -> MobilePhoneCoreDataSelector
+    -> MobilePhoneColumnDeleter
+    -> MobilePhoneTableDecoder
+    -> MobilePhoneLoader;
+}
+
