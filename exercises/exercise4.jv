@@ -28,7 +28,7 @@ pipeline MobilePhonePipeline {
             "Geraet" oftype text,
             "Hersteller" oftype text,
             "Model" oftype text,
-            "Monat" oftype decimal,
+            "Monat" oftype integer,
             "Temperatur" oftype decimal,
             "Batterietemperatur" oftype decimal,
             "Geraet aktiv" oftype text
