@@ -21,15 +21,6 @@ pipeline MobilePhonePipeline {
 		delimiter: ';';
 	}
 
-    block MobilePhoneCoreDataSelector oftype CellRangeSelector {
-        select: range A1:K*;
-    }
-
-    block MobilePhoneColumnDeleter oftype ColumnDeleter {
-        delete: [column F, column G, column H, column I];
-    }
-
-
 
     block MobilePhoneTableInterpreter oftype TableInterpreter {
         header: false;
@@ -37,6 +28,7 @@ pipeline MobilePhonePipeline {
             "Geraet" oftype text,
             "Hersteller" oftype text,
             "Model" oftype text,
+            "Monat" oftype decimal,
             "Temperatur" oftype decimal,
             "Batterietemperatur" oftype decimal,
             "Geraet aktiv" oftype text
@@ -47,7 +39,7 @@ pipeline MobilePhonePipeline {
 
     block TemperaturCelsiusToFahrenheitTransformer oftype TableTransformer {
         inputColumn: 'Temperatur';
-        outputColumn: 'Temperature';
+        outputColumn: 'Temperatur';
         use: CelsiusToFahrenheit;
     }
 
@@ -74,8 +66,6 @@ pipeline MobilePhonePipeline {
     -> MobilePhoneFilePicker
     -> MobilePhoneTextFileInterpreter
     -> MobilePhoneCSVDecoder
-    -> MobilePhoneCoreDataSelector
-    -> MobilePhoneColumnDeleter
     -> MobilePhoneTableInterpreter
     -> TemperaturCelsiusToFahrenheitTransformer
     -> BatterietemperaturCelsiusToFahrenheitTransformer
