@@ -28,7 +28,7 @@ pipeline MobilePhonePipeline {
             "Geraet" oftype text,
             "Hersteller" oftype text,
             "Model" oftype text,
-            "Monat" oftype decimal,
+            "Monat" oftype integer,
             "Temperatur" oftype decimal,
             "Batterietemperatur" oftype decimal,
             "Geraet aktiv" oftype text
@@ -53,7 +53,7 @@ pipeline MobilePhonePipeline {
         from tempCelsius oftype decimal;
         to tempFahrenheit oftype decimal;
 
-        tempFahrenheit: (tempCelsius* 9/5) + 32;
+        tempFahrenheit: round((tempCelsius* 9/5) + 32);
     }
 
     block MobilePhoneLoader oftype SQLiteLoader {
