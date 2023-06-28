@@ -1,5 +1,4 @@
 
-
 pipeline MobilePhonePipeline {
 
     
@@ -13,7 +12,7 @@ pipeline MobilePhonePipeline {
     }
 
     block MobilePhoneFilePicker oftype FilePicker {
-        path: "./data.csv";
+        path: "/data.csv";
     }
 
     block MobilePhoneTextFileInterpreter oftype TextFileInterpreter {}
@@ -32,16 +31,37 @@ pipeline MobilePhonePipeline {
 
 
 
-    block MobilePhoneTableDecoder oftype TableInterpreter {
+    block MobilePhoneTableInterpreter oftype TableInterpreter {
         header: false;
         columns: [
             "Geraet" oftype text,
             "Hersteller" oftype text,
             "Model" oftype text,
-            "Temperature" oftype decimal,
+            "Temperatur" oftype decimal,
             "Batterietemperatur" oftype decimal,
             "Geraet aktiv" oftype text
         ];
+    }
+
+
+
+    block TemperaturCelsiusToFahrenheitTransformer oftype TableTransformer {
+        inputColumn: 'Temperatur';
+        outputColumn: 'Temperature';
+        use: CelsiusToFahrenheit;
+    }
+
+    block BatterietemperaturCelsiusToFahrenheitTransformer oftype TableTransformer {
+        inputColumn: 'Batterietemperatur';
+        outputColumn: 'Batterietemperatur';
+        use: CelsiusToFahrenheit;
+    }
+
+    transform CelsiusToFahrenheit {
+        from tempCelsius oftype decimal;
+        to tempFahrenheit oftype decimal;
+
+        tempFahrenheit: (tempCelsius* 9/5) + 32;
     }
 
     block MobilePhoneLoader oftype SQLiteLoader {
@@ -56,7 +76,8 @@ pipeline MobilePhonePipeline {
     -> MobilePhoneCSVDecoder
     -> MobilePhoneCoreDataSelector
     -> MobilePhoneColumnDeleter
-    -> MobilePhoneTableDecoder
+    -> MobilePhoneTableInterpreter
+    -> TemperaturCelsiusToFahrenheitTransformer
+    -> BatterietemperaturCelsiusToFahrenheitTransformer
     -> MobilePhoneLoader;
 }
-
