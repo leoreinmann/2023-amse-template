@@ -8,7 +8,7 @@ constraint MonthConstraint oftype RangeConstraint {
 }
 
 valuetype id oftype integer {
-    constraints: [ MonthConstraint ];
+    constraints: [ IDConstraint ];
 }
 
 constraint IDConstraint oftype RangeConstraint {
