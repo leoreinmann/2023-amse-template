@@ -7,3 +7,5 @@ trainstops.*
 cars.*
 
 temperatures.*
+
+gtfs.sqlite
