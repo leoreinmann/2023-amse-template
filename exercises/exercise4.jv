@@ -7,6 +7,13 @@ constraint MonthConstraint oftype RangeConstraint {
     upperBound: 12;
 }
 
+valuetype id oftype integer {
+    constraints: [ MonthConstraint ];
+}
+
+constraint IDConstraint oftype RangeConstraint {
+    lowerBound: 1;
+}
 
 pipeline MobilePhonePipeline {
 
@@ -39,7 +46,7 @@ pipeline MobilePhonePipeline {
     block MobilePhoneTableInterpreter oftype TableInterpreter {
         header: false;
         columns: [
-            "Geraet" oftype integer,
+            "Geraet" oftype id,
             "Hersteller" oftype text,
             "Model" oftype text,
             "Monat" oftype month,
